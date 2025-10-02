@@ -22,6 +22,14 @@ def selected_investor_details(investor):
         fig, ax = plt.subplots()
         ax.bar(big.index, big.values)
         st.pyplot(fig)
+    with col2:
+        verical_series = df[df['Investors Name'].str.contains(investor)].groupby('Vertical')['Amount'].sum()
+
+        st.subheader('Sectors invested in')
+        fig1, ax1 = plt.subplots()
+        ax1.pie(verical_series,labels=verical_series.index,autopct="%0.01f%%")
+
+        st.pyplot(fig1)
 
 
 st.sidebar.title("Startup Funding Analysis")
