@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+st.set_page_config(layout="wide",page_title="Startup Analysis")
+
 df=pd.read_csv("startup_cleaned.csv")
 
 def selected_investor_details(investor):
@@ -11,13 +13,15 @@ def selected_investor_details(investor):
     last5=df[df['Investors Name'].str.contains(investor)].head()[['Date','Stratup','Vertical','City  Location','Round','Amount']]
     st.subheader("Most Recent Investments Details(Top 5)")
     st.dataframe(last5)
-
-    #Loading Biggest Investments
-    big=df[df['Investors Name'].str.contains(investor)].groupby('Stratup')['Amount'].sum().sort_values(ascending=False).head()
-    st.subheader("Biggest Investment")
-    fig, ax = plt.subplots()
-    ax.bar(big.index, big.values)
-    st.pyplot(fig)
+    col1, col2 = st.columns(2)
+    with col1:
+        #Loading Biggest Investments
+        big=df[df['Investors Name'].str.contains(investor)].groupby('Stratup')['Amount'].sum().sort_values(ascending=False).head()
+        st.subheader("Biggest Investment")
+        # st.dataframe(big)
+        fig, ax = plt.subplots()
+        ax.bar(big.index, big.values)
+        st.pyplot(fig)
 
 
 st.sidebar.title("Startup Funding Analysis")
