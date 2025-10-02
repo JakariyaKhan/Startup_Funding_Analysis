@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 st.set_page_config(layout="wide",page_title="Startup Analysis")
 
 df=pd.read_csv("startup_cleaned.csv")
+df['Date'] = pd.to_datetime(df['Date'],errors='coerce')
 
 def selected_investor_details(investor):
     st.title(investor)
@@ -31,8 +32,8 @@ def selected_investor_details(investor):
 
         st.pyplot(fig1)
 
-    df['year'] = df['date'].dt.year
-    year_series = df[df['Investors Name'].str.contains(investor)].groupby('year')['Amount'].sum()
+    df['Year'] = df['Date'].dt.year
+    year_series = df[df['Investors Name'].str.contains(investor)].groupby('Year')['Amount'].sum()
 
     st.subheader('YoY Investment')
     fig2, ax2 = plt.subplots()
