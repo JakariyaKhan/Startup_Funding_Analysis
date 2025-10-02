@@ -11,6 +11,11 @@ def selected_investor_details(investor):
     st.subheader("Most Recent Investments Details(Top 5)")
     st.dataframe(last5)
 
+    #Loading Biggest Investments
+    big=df[df['Investors Name'].str.contains(" IDG Ventures")].groupby('Stratup')['Amount'].sum().sort_values(ascending=False)
+    st.subheader("Biggest Investment")
+    st.dataframe(big)
+
 
 st.sidebar.title("Startup Funding Analysis")
 
