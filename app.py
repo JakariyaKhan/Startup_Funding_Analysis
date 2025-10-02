@@ -31,6 +31,15 @@ def selected_investor_details(investor):
 
         st.pyplot(fig1)
 
+    df['year'] = df['date'].dt.year
+    year_series = df[df['Investors Name'].str.contains(investor)].groupby('year')['Amount'].sum()
+
+    st.subheader('YoY Investment')
+    fig2, ax2 = plt.subplots()
+    ax2.plot(year_series.index,year_series.values)
+
+    st.pyplot(fig2)
+
 
 st.sidebar.title("Startup Funding Analysis")
 
