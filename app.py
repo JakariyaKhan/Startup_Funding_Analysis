@@ -1,6 +1,7 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 df=pd.read_csv("startup_cleaned.csv")
 
@@ -12,9 +13,11 @@ def selected_investor_details(investor):
     st.dataframe(last5)
 
     #Loading Biggest Investments
-    big=df[df['Investors Name'].str.contains(" IDG Ventures")].groupby('Stratup')['Amount'].sum().sort_values(ascending=False)
+    big=df[df['Investors Name'].str.contains(investor)].groupby('Stratup')['Amount'].sum().sort_values(ascending=False).head()
     st.subheader("Biggest Investment")
-    st.dataframe(big)
+    fig, ax = plt.subplots()
+    ax.bar(big.index, big.values)
+    st.pyplot(fig)
 
 
 st.sidebar.title("Startup Funding Analysis")
