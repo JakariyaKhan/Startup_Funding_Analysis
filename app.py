@@ -35,11 +35,17 @@ def load_overall_analysis():
 
     #MOM investment Graph
     st.header("Mom graph")
-    temp = df.groupby(["Year", "Months"])["Amount"].sum().reset_index()
-    temp["x_axix"] = temp['Months'].astype("str") + " " + temp['Year'].astype("str")
+    selected_option = st.selectbox("Select an option",["Total","Count"])
+    if selected_option == "Total":
+        temp = df.groupby(["Year", "Months"])["Amount"].sum().reset_index()
+    else:
+        temp = df.groupby(["Year", "Months"])["Amount"].count().reset_index()
+    temp["x_axis"] = temp['Months'].astype("str") + " " + temp['Year'].astype("str")
+
     fig3, ax3 = plt.subplots()
-    ax3.plot(temp["x_axix"],temp["Amount"])
+    ax3.plot(temp["x_axis"], temp["Amount"])
     st.pyplot(fig3)
+
 def selected_investor_details(investor):
     st.title(investor)
     #Loading Recent Investings
@@ -79,8 +85,8 @@ st.sidebar.title("Startup Funding Analysis")
 option=st.sidebar.selectbox("Select one",["Overall Analysis","Startup","Investor"])
 
 if option=="Overall Analysis":
-    btn0=st.sidebar.button("Show Overall Analysis")
-    if btn0:
+    # btn0=st.sidebar.button("Show Overall Analysis")
+    # if btn0:
         load_overall_analysis()
 
 elif option=="Startup":
