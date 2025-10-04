@@ -36,3 +36,7 @@ An interactive dashboard built with Streamlit to explore startup funding trends 
 ## 👨‍💻 Author: Jakariya Khan
 BTech in CSE (AI & ML)
 Passionate about building impactful AI/ML projects and data-driven dashboards.
+
+## Contact Info:
+- **Phone No**: 7007416393
+- **Email**: jakariya012006@gmail.com
